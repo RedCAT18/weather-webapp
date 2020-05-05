@@ -6,17 +6,21 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.4);
+  position: -webkit-sticky;
+  position: sticky;
 `;
 
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin: 10px 20px;
 `;
 
 const Navigation = styled.nav`
   align-self: flex-end;
   width: 40%;
+  margin-bottom: 10px;
   ul {
     display: flex;
     flex-direction: row;
