@@ -14,8 +14,13 @@ const Input = styled.input`
 
 const Form = (props) => {
   return (
-    <Container>
-      <Input type="text" placeholder="Input the name of city..." />
+    <Container onSubmit={props.handleSubmit}>
+      <Input
+        type="text"
+        value={props.value}
+        onChange={props.handleChange}
+        placeholder="Input the name of city..."
+      />
     </Container>
   );
 };
