@@ -17,11 +17,22 @@ export const weatherApi = {
         lon,
       },
     }),
-  getWeatherByCity: (city) => {
+  getWeatherByCity: (city) =>
     api.get(`weather`, {
       params: {
         q: city,
       },
-    });
-  },
+    }),
+  getDetailWeather: (lat, lon) =>
+    api.get(`onecall`, {
+      params: {
+        lat,
+        lon,
+      },
+    }),
+  getWorldWeathers: (ids) =>
+    api.get('group', {
+      params: { id: ids },
+    }),
+  getForecast: (id) => api.get('forecast', { params: id }),
 };

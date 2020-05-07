@@ -10,6 +10,7 @@ import Home from 'Routes/Home/';
 import City from 'Routes/City/';
 import Current from 'Routes/Current/';
 import World from 'Routes/World/';
+import Forecast from 'Routes/Forecast/';
 import Header from 'Components/Header';
 
 export default () => (
@@ -21,6 +22,7 @@ export default () => (
       <Route path="/city" exact component={City} />
       <Route path="/current" exact component={Current} />
       <Route path="/world" exact component={World} />
+      <Route path="/forecast/:id" component={Forecast} />
       <Redirect from="*" to="/" />
     </Switch>
   </Router>

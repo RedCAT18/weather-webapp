@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const WorldPresenter = (props) => {
+const ForecastPresenter = (props) => {
   const { weather, error, loading } = props;
-  console.log(weather);
-  return <h1>World</h1>;
+  return <h1>Forecast</h1>;
 };
 
-export default WorldPresenter;
+export default ForecastPresenter;

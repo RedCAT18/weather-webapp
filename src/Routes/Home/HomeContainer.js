@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HomePresenter from './HomePresenter';
 import { weatherApi } from 'api';
+import { fetchLocation } from 'api/helper';
 import { useWeatherState, useDispatch } from 'Context/WeatherContext';
 import { GET_CURRENT_WEATHER, GET_CURRENT_LOCATION } from 'reducer/actions';
 
@@ -11,16 +12,6 @@ const HomeContainer = () => {
   );
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-
-  function fetchLocation() {
-    if (navigator.geolocation) {
-      return new Promise((res, rej) =>
-        navigator.geolocation.getCurrentPosition(res, rej)
-      );
-    } else {
-      return new Promise((res) => res({}));
-    }
-  }
 
   useEffect(() => {
     try {

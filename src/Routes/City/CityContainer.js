@@ -4,7 +4,7 @@ import { weatherApi } from 'api';
 
 const CityContainer = () => {
   const [city, setCity] = useState('');
-  const [weather, setWeather] = useState({});
+  const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -22,7 +22,7 @@ const CityContainer = () => {
   const getWeather = async () => {
     setLoading(true);
     try {
-      const data = await weatherApi.getWeatherByCity(city);
+      const { data } = await weatherApi.getWeatherByCity(city);
 
       setWeather(data);
       setCity('');
