@@ -22,6 +22,7 @@ const WorldContainer = () => {
       const fetchData = async () => {
         const { data } = await weatherApi.getWorldWeathers(getCityIds());
         setWeather(data);
+        dispatch({ type: GET_WORLD_WEATHER, payload: data });
       };
 
       try {
@@ -34,7 +35,7 @@ const WorldContainer = () => {
         setLoading(false);
       }
     }
-  }, [weather]);
+  }, [dispatch, weather]);
 
   return <WorldPresenter weather={weather} loading={loading} error={error} />;
 };

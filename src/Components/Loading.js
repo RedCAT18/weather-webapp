@@ -1,6 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Loading = () => <img src={require('Assets/loading.svg')} alt="loading" />;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Image = styled.img`
+  margin-top: 250px;
+`;
+
+const Loading = () => (
+  <Container>
+    <Image src={require('assets/loading.svg')} alt="loading" />
+  </Container>
+);
 
 export default Loading;
