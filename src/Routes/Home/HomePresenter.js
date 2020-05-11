@@ -2,101 +2,58 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Loading from 'Components/Loading';
+import Panel from 'Components/Panel';
+import Box from 'Components/Box';
 
 const Container = styled.div`
+  position: relative;
   width: 80vw;
+  max-width: 1024px;
   height: 100vh;
   background-color: #fff;
   margin: auto;
   -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  padding: 40px;
+  padding: 30px;
+  z-index: -1;
   @media screen and (max-width: 768px) {
     width: 100%;
   }
+`;
+
+const ContainerBackground = styled.div`
+  position: absolute;
+  top:0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('${(props) => props.bgImage}');
+  background-size: cover;
+  opacity: 0.5;
+  z-index: -1;
 `;
 
 const Content = styled.div`
   display: flex;
-  flex-direction: row;
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const WeatherPanel = styled.div`
-  position: relative;
-  display: flex;
   flex-direction: column;
-  color: #fff;
-  padding: 20px;
-  background-color: #e74c3c;
-  min-height: 400px;
-  border-radius: 5px;
-
-  flex: 3;
-  width: 50%;
-  justify-content: flex-end;
-  align-items: flex-end;
-  margin-right: 20px;
-
-  @media screen and (max-width: 800px) {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-`;
-
-const WeatherBackground = styled.div`
-  position: absolute;
-  top:0;
-  left:0;
-  width: 100%;
-  height: 100;
-  background-image: url('${(props) => props.bgImage}');
-  background-size: cover;
-  background-position: center center;
-  opacity: 0.5;
-`;
-
-const SunPanel = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: #fff;
-  padding: 20px;
-  background-color: #e74c3c;
-  min-height: 400px;
-  border-radius: 5px;
-  flex: 1;
-  align-items: center;
-  justify-content: space-around;
 `;
 
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 700;
-  color: #595959;
+  color: #000;
+  margin-top: 20px;
   margin-bottom: 20px;
   text-align: center;
 `;
 
-const WeatherIcon = styled.span`
-  width: 100px;
-  height: 100px;
-  background-image: url('${(props) => props.bgImage}');
-  background-size: cover;
-  margin-bottom: 20px;
-`;
-
-const Maintext = styled.p`
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 10px;
-`;
-
-const Subtext = styled.p`
-  font-size: 1em;
-  margin-bottom: 5px;
+const SubTitle = styled.h3`
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 40px;
+  text-align: right;
+  color: #000;
 `;
 
 const HomePresenter = (props) => {
@@ -109,34 +66,36 @@ const HomePresenter = (props) => {
 
   const renderContainer = () =>
     weather ? (
-      <Container>
+      <Container
+        bgImage={require(`assets/photos/${weather.weather[0].main.toLowerCase()}.jpg`)}
+      >
         <Title>
           Current Weather of your location ({weather.name},{' '}
           {weather.sys.country})
         </Title>
+        <SubTitle>Update time {getTime(weather.dt)}</SubTitle>
         <Content>
-          <WeatherPanel
-            bgImage={require(`assets/${weather.weather[0].main.toLowerCase()}.png`)}
-          >
-            <WeatherIcon
-              bgImage={require(`assets/${weather.weather[0].main.toLowerCase()}.png`)}
-            ></WeatherIcon>
-            <Maintext>Status: {weather.weather[0].main}</Maintext>
-            <Subtext>Current temperature: {weather.main.temp}</Subtext>
-            <Subtext>Feels like: {weather.main.feels_like}</Subtext>
-            <Subtext>Pressure: {weather.main.pressure}</Subtext>
-            <Subtext>Humidity: {weather.main.humidity}</Subtext>
-            <Subtext>
-              Wind speed : {weather.wind.speed} degree: {weather.wind.deg}
-            </Subtext>
-          </WeatherPanel>
-          <WeatherBackground />
-
-          <SunPanel>
-            <Subtext>Sunrise: {getTime(weather.sys.sunrise)}</Subtext>
-            <Subtext>Sunset: {getTime(weather.sys.sunset)}</Subtext>
-          </SunPanel>
+          <Panel
+            icon={require(`assets/${weather.weather[0].main.toLowerCase()}.png`)}
+            status={weather.weather[0].main}
+            description={weather.weather[0].description}
+            cloud={weather.clouds.all}
+            temp={weather.main.temp}
+            feelsLike={weather.main.feels_like}
+            pressure={weather.main.pressure}
+            humidity={weather.main.humidity}
+            windSpeed={weather.wind.speed}
+            windDeg={weather.wind.deg}
+            visibility={weather.visibility}
+          />
+          <Box
+            sunrise={getTime(weather.sys.sunrise)}
+            sunset={getTime(weather.sys.sunset)}
+          />
         </Content>
+        <ContainerBackground
+          bgImage={require(`assets/photos/${weather.weather[0].main.toLowerCase()}.jpg`)}
+        />
       </Container>
     ) : null;
 

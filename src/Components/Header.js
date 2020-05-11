@@ -9,6 +9,8 @@ const Container = styled.div`
   box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.4);
   position: -webkit-sticky;
   position: sticky;
+  top: 0;
+  background-color: #f4f4f4;
 `;
 
 const Title = styled.h1`
