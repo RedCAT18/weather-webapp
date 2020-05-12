@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import {
   XYPlot,
-  LineMarkSeries,
+  LineSeries,
   HorizontalGridLines,
   VerticalGridLines,
   XAxis,
   YAxis,
 } from 'react-vis';
+import '../../node_modules/react-vis/dist/style.css';
 
 const Container = styled.div`
   width: 100%;
@@ -36,7 +37,7 @@ const Chart = ({ weather, time }) => {
   weather.map((w, idx) => {
     let hour = parseInt(time.substr(0, 2)) + idx;
     let date = parseInt(today) + Math.floor(hour / 24);
-    tempData.push({ x: `${hour}(${date})` % 24, y: w.temp });
+    tempData.push({ x: hour, y: w.temp });
   });
 
   console.log(tempData);
@@ -48,7 +49,7 @@ const Chart = ({ weather, time }) => {
           <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
           <XAxis title="Time" style={axisStyle} />
           <YAxis title="Temperature" />
-          <LineMarkSeries
+          <LineSeries
             data={tempData}
             curve={'curveMonotoneX'}
             style={chartStyle}
