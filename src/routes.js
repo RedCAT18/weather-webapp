@@ -8,7 +8,7 @@ import {
 
 import Home from 'Routes/Home/';
 import City from 'Routes/City/';
-import Current from 'Routes/Current/';
+import Days from 'Routes/Days/';
 import World from 'Routes/World/';
 import Forecast from 'Routes/Forecast/';
 import Header from 'Components/Header';
@@ -20,7 +20,7 @@ export default () => (
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/city" exact component={City} />
-      <Route path="/current" exact component={Current} />
+      <Route path="/days" exact component={Days} />
       <Route path="/world" exact component={World} />
       <Route path="/forecast/:id" component={Forecast} />
       <Redirect from="*" to="/" />

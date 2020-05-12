@@ -2,6 +2,9 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;700&display=swap');
+  @import '../node_modules/react-vis/dist/style.css';
+  
   ${reset};
   a {
     text-decoration: none;
@@ -11,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 14px;
     background-color: #f4f4f4;
     color: #252733;

@@ -4,12 +4,13 @@ import styled from 'styled-components';
 import Loading from 'Components/Loading';
 import Panel from 'Components/Panel';
 import Box from 'Components/Box';
+import Tophead from 'Components/Tophead';
 
 const Container = styled.div`
   position: relative;
   width: 80vw;
   max-width: 1024px;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #fff;
   margin: auto;
   -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
@@ -39,29 +40,17 @@ const Content = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 700;
-  color: #000;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  text-align: center;
-`;
-
-const SubTitle = styled.h3`
-  font-size: 16px;
-  font-weight: 400;
-  margin-bottom: 40px;
-  text-align: right;
-  color: #000;
-`;
-
 const HomePresenter = (props) => {
   const { weather, error, loading } = props;
-  console.log(weather);
+  // console.log(weather);
 
   const getTime = (time) => {
     return new Date(time * 1000).toString().substr(16, 8);
+  };
+
+  const getRainfall = (weather) => {
+    const rainfall = weather.rain || weather.snow || null;
+    return rainfall ? rainfall[Object.keys(rainfall)[0]] : null;
   };
 
   const renderContainer = () =>
@@ -69,11 +58,11 @@ const HomePresenter = (props) => {
       <Container
         bgImage={require(`assets/photos/${weather.weather[0].main.toLowerCase()}.jpg`)}
       >
-        <Title>
-          Current Weather of your location ({weather.name},{' '}
-          {weather.sys.country})
-        </Title>
-        <SubTitle>Update time {getTime(weather.dt)}</SubTitle>
+        <Tophead
+          title={'Current Weather of your location'}
+          subtitle={`(${weather.name}, ${weather.sys.country})`}
+          text={`Update time ${getTime(weather.dt)}`}
+        />
         <Content>
           <Panel
             icon={require(`assets/${weather.weather[0].main.toLowerCase()}.png`)}
@@ -84,6 +73,7 @@ const HomePresenter = (props) => {
             feelsLike={weather.main.feels_like}
             pressure={weather.main.pressure}
             humidity={weather.main.humidity}
+            rainfall={getRainfall(weather)}
             windSpeed={weather.wind.speed}
             windDeg={weather.wind.deg}
             visibility={weather.visibility}

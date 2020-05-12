@@ -11,6 +11,7 @@ const Container = styled.div`
   position: sticky;
   top: 0;
   background-color: #f4f4f4;
+  z-index: 10;
 `;
 
 const Title = styled.h1`
@@ -42,7 +43,7 @@ export default withRouter(({ location: { pathname } }) => (
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/current">Current</Link>
+          <Link to="/days">7 Days</Link>
         </li>
         <li>
           <Link to="/city">City</Link>

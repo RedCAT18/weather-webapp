@@ -3,11 +3,11 @@ import { useDispatch, useWeatherState } from 'Context/WeatherContext';
 import { GET_CURRENT_LOCATION } from 'reducer/actions';
 import { weatherApi } from 'api';
 import { fetchLocation } from 'api/helper';
-import CurrentPresenter from './CurrentPresenter';
+import DaysPresenter from './DaysPresenter';
 
-const CurrentContainer = () => {
+const DaysContainer = () => {
   const dispatch = useDispatch();
-  const { currentLocation } = useWeatherState();
+  const { DaysLocation } = useWeatherState();
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -19,10 +19,10 @@ const CurrentContainer = () => {
         setWeather(data);
       };
 
-      if (!currentLocation) {
+      if (!DaysLocation) {
         fetchLocation().then(async (position) => {
           if (position.coords) {
-            if (!useWeatherState.currentLocation) {
+            if (!useWeatherState.DaysLocation) {
               dispatch({
                 type: GET_CURRENT_LOCATION,
                 payload: {
@@ -37,14 +37,14 @@ const CurrentContainer = () => {
       }
     } catch {
       setError(
-        'Sorry, there is any problem to fetch the weather of your current location'
+        'Sorry, there is any problem to fetch the weather of your Days location'
       );
     } finally {
       setLoading(false);
     }
-  }, [currentLocation, dispatch]);
+  }, [DaysLocation, dispatch]);
 
-  return <CurrentPresenter weather={weather} error={error} loading={loading} />;
+  return <DaysPresenter weather={weather} error={error} loading={loading} />;
 };
 
-export default CurrentContainer;
+export default DaysContainer;

@@ -67,7 +67,10 @@ const Panel = (props) => (
       <div>
         <Title>{props.temp}℃</Title>
         <Maintext>Status: {props.status}</Maintext>
-        <Subtext>{props.description}</Subtext>
+        <Subtext>
+          {props.description}{' '}
+          {props.rainfall ? `(${props.rainfall}mm/s)` : null}
+        </Subtext>
       </div>
     </Textbox>
     <Textbox>
