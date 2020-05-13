@@ -23,20 +23,18 @@ const CityContainer = () => {
     setLoading(true);
     try {
       const { data } = await weatherApi.getWeatherByCity(city);
-
       setWeather(data);
-      setCity('');
     } catch {
       setError(
         'Sorry, there is any problem to fetch the weather of your current location'
       );
     } finally {
       setLoading(false);
+      setCity('');
     }
   };
   return (
     <CityPresenter
-      city={city}
       weather={weather}
       error={error}
       loading={loading}

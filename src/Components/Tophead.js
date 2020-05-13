@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  margin: 20px;
+  padding: 20px;
 `;
 
 const Title = styled.h1`

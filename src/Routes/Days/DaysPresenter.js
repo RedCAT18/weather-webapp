@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Loading from 'Components/Loading';
-import Panel from 'Components/Panel';
+import Board from 'Components/Board';
 import Tophead from 'Components/Tophead';
 import Card from 'Components/Card';
 import Chart from 'Components/Chart';
@@ -11,15 +11,20 @@ const Container = styled.div`
   width: 80%;
   margin: auto;
   max-width: 1024px;
+  padding: 30px;
 `;
 
 const Content = styled.div`
   width: 100%;
   display: grid;
+  margin-bottom: 40px;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: auto;
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 1024px) {
     grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 
@@ -39,11 +44,6 @@ const DaysPresenter = (props) => {
     return new Date(time * 1000).toString().substr(16, 8);
   };
 
-  const getRainfall = (weather) => {
-    const rainfall = weather.rain || weather.snow || null;
-    return rainfall ? rainfall[Object.keys(rainfall)[0]] : null;
-  };
-
   const renderContainer = () =>
     weather ? (
       <Container>
@@ -53,32 +53,20 @@ const DaysPresenter = (props) => {
           text={`Updated at ${getTime(weather.current.dt)}`}
         />
         <Title>Current Conditions</Title>
-        <Panel
-          icon={require(`assets/${weather.current.weather[0].main.toLowerCase()}.png`)}
-          status={weather.current.weather[0].main}
-          description={weather.current.weather[0].description}
-          cloud={weather.current.clouds}
-          temp={weather.current.temp}
-          feelsLike={weather.current.feels_like}
-          pressure={weather.current.pressure}
-          humidity={weather.current.humidity}
-          rainfall={getRainfall(weather.current)}
-          windSpeed={weather.current.wind_speed}
-          windDeg={weather.current.wind_deg}
-          visibility={weather.current.visibility}
-        />
-        <Title>48 Hours</Title>
+        <Board weather={weather.current} />
+        <Title>Next 48 Hours Temperature</Title>
         <Chart weather={weather.hourly} time={getTime(weather.current.dt)} />
 
         <Title>Forecast 7 days</Title>
         <Content>
           {weather.daily.map((day, idx) => {
-            let time = new Date();
-            let name = time.toString().substr(0, 3);
+            const now = new Date();
+            let newDay = now.getDate() + parseInt(idx);
+            now.setDate(newDay);
             let date = {
-              month: time.getMonth() + 1,
-              day: time.getDate() + idx,
-              name,
+              month: now.getMonth() + 1,
+              day: now.getDate(),
+              daycord: (now.getDay() + idx) % 7,
             };
             return <Card weather={day} date={date} key={idx} />;
           })}

@@ -40,18 +40,20 @@ const Text = styled.p`
 `;
 
 const Card = ({ weather, date }) => {
-  const { day, month, name } = date;
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const { day, month, daycord } = date;
   const {
     temp: { max, min },
   } = weather;
   const { main } = weather.weather[0];
+
   return (
     <Container>
       <Content>
         <Title>
           {day}/{month}
         </Title>
-        <Title>{name}</Title>
+        <Title>{days[daycord]}</Title>
         <Icon bgImage={require(`assets/${main.toLowerCase()}.png`)} />
         <Text>Max: {Math.round(max)}℃</Text>
         <Text>Min: {Math.round(min)}℃</Text>

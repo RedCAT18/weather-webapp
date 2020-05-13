@@ -10,6 +10,8 @@ const Input = styled.input`
   all: unset;
   width: 100%;
   border-bottom: 1px solid black;
+  height: 40px;
+  text-indent: 10px;
 `;
 
 const Form = (props) => {
