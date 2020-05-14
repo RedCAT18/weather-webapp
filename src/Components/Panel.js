@@ -75,8 +75,8 @@ const Panel = (props) => (
     </Textbox>
     <Textbox>
       <div>
-        <Subtext>Clouds: {props.cloud}%</Subtext>
         <Subtext>Feels like: {props.feelsLike}℃</Subtext>
+        <Subtext>Clouds: {props.cloud}%</Subtext>
         <Subtext>Visibility: {parseInt(props.visibility) / 1000}㎞</Subtext>
       </div>
       <div>

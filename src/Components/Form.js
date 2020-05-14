@@ -9,7 +9,7 @@ const Container = styled.form`
 const Input = styled.input`
   all: unset;
   width: 100%;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #7f7f7f;
   height: 40px;
   text-indent: 10px;
 `;
@@ -21,7 +21,7 @@ const Form = (props) => {
         type="text"
         value={props.value}
         onChange={props.handleChange}
-        placeholder="Input the name of city..."
+        placeholder="Input the name of city, or city,country. [i.e. Perth,AU])"
       />
     </Container>
   );
