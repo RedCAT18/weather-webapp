@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   position: relative;
-  min-height: 400px;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   color: #333533;

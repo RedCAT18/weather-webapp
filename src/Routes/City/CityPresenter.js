@@ -8,6 +8,8 @@ import Loading from 'Components/Loading';
 import Panel from 'Components/Panel';
 import Tophead from 'Components/Tophead';
 import Box from 'Components/Box';
+import Error from 'Components/Error';
+import Card from 'Components/Card';
 
 const Container = styled.div`
   width: 80vw;
@@ -15,10 +17,6 @@ const Container = styled.div`
   margin: auto;
   min-height: 100vh;
   padding: 30px;
-  background-color: #fff;
-  -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
 `;
 
 const Blank = styled.div`
@@ -38,24 +36,86 @@ const Blank = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 30px;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  height: 80px;
+  background-color: #120136;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 20px;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+  &:active {
+    transform: scale(0.99);
+  }
+`;
+
+const DetailContainer = styled.div`
+  width: 100%;
+  margin-bottom: 40px;
+`;
+
+const DetailContent = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto;
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;
+
+const Title = styled.h1`
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 20px;
 `;
 
 const CityPresenter = (props) => {
-  const { city, weather, error, loading, handleChange, handleSubmit } = props;
+  const {
+    city,
+    weather,
+    detail,
+    error,
+    loading,
+    handleChange,
+    handleSubmit,
+    handleClick,
+  } = props;
   const [pageError, setPageError] = useState('');
 
   useEffect(() => {
     if (error.length !== 0) setPageError(error);
   }, [error]);
 
-  console.log(weather);
+  console.log(detail);
 
   const getTime = (time) => {
     let timezone = cityTimezones.lookupViaCity(weather.name);
     if (timezone.length === 0) {
       timezone = cityTimezones.findFromCityStateProvince(weather.name);
     }
-    console.log(timezone);
+
+    if (timezone.length === 0) {
+      setPageError('Cannot find the city. Please input other name.');
+      return null;
+    }
+
     let tzName =
       timezone.length === 1
         ? timezone[0].timezone
@@ -64,11 +124,8 @@ const CityPresenter = (props) => {
               zone.city.includes(weather.name) &&
               zone.iso2 === weather.sys.country
           )[0].timezone;
-    console.log(tzName);
     let givenTime = new Date(time * 1000);
-    console.log(givenTime);
     let localtime = moment(givenTime).tz(tzName).format();
-    console.log(localtime);
     return localtime.substr(11, 8);
   };
 
@@ -78,7 +135,9 @@ const CityPresenter = (props) => {
   };
 
   const renderContainer = () =>
-    weather ? (
+    pageError.length !== 0 ? (
+      <Error error={pageError} />
+    ) : weather ? (
       <Container>
         <Tophead
           title={`Current Weather of ${weather.name}, ${weather.sys.country}`}
@@ -104,6 +163,27 @@ const CityPresenter = (props) => {
             sunset={getTime(weather.sys.sunset)}
           />
         </Content>
+
+        {detail ? (
+          <DetailContainer>
+            <Title>Forecast 7 days</Title>
+            <DetailContent>
+              {detail.map((day, idx) => {
+                const now = new Date();
+                let newDay = now.getDate() + parseInt(idx);
+                now.setDate(newDay);
+                let date = {
+                  month: now.getMonth() + 1,
+                  day: now.getDate(),
+                  daycord: (now.getDay() + idx) % 7,
+                };
+                return <Card weather={day} date={date} key={idx} />;
+              })}
+            </DetailContent>
+          </DetailContainer>
+        ) : (
+          <Button onClick={handleClick}>7 day forecast</Button>
+        )}
       </Container>
     ) : (
       <Container>
@@ -128,6 +208,3 @@ const CityPresenter = (props) => {
 };
 
 export default CityPresenter;
-
-// 1589401422  Thu May 14 2020 08:23:42 GMT+1200 (뉴질랜드 표준시) - 8
-// 32400

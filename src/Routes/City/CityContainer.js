@@ -5,6 +5,7 @@ import { weatherApi } from 'api';
 const CityContainer = () => {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
+  const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -16,6 +17,25 @@ const CityContainer = () => {
     e.preventDefault();
     if (city.length !== 0) {
       getWeather(city);
+    }
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    getDetailWeather(weather.coord);
+  };
+
+  const getDetailWeather = async (coord) => {
+    try {
+      const {
+        data: { daily },
+      } = await weatherApi.getDetailWeather(coord.lat, coord.lon);
+      console.log(daily);
+      setDetail(daily);
+    } catch {
+      setError(
+        'Sorry, there is any problem to fetch the detail weather of your current location'
+      );
     }
   };
 
@@ -36,10 +56,12 @@ const CityContainer = () => {
   return (
     <CityPresenter
       weather={weather}
+      detail={detail}
       error={error}
       loading={loading}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
+      handleClick={handleClick}
     />
   );
 };
