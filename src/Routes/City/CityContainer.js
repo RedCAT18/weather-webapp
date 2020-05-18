@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CityPresenter from './CityPresenter';
 import { weatherApi } from 'api';
 
@@ -17,6 +17,7 @@ const CityContainer = () => {
     e.preventDefault();
     if (city.length !== 0) {
       getWeather(city);
+      setDetail(null);
     }
   };
 
@@ -34,7 +35,7 @@ const CityContainer = () => {
       setDetail(daily);
     } catch {
       setError(
-        'Sorry, there is any problem to fetch the detail weather of your current location'
+        'Sorry, there is any problem to fetch the detail weather of the city.'
       );
     }
   };
@@ -45,9 +46,7 @@ const CityContainer = () => {
       const { data } = await weatherApi.getWeatherByCity(city);
       setWeather(data);
     } catch {
-      setError(
-        'Sorry, there is any problem to fetch the weather of your current location'
-      );
+      setError('Sorry, there is any problem to fetch the weather of the city');
     } finally {
       setLoading(false);
       setCity('');

@@ -23,6 +23,7 @@ export const weatherApi = {
         q: city,
       },
     }),
+  getWeatherById: (id) => api.get(`weather`, { params: id }),
   getDetailWeather: (lat, lon) =>
     api.get(`onecall`, {
       params: {
@@ -34,5 +35,4 @@ export const weatherApi = {
     api.get('group', {
       params: { id: ids },
     }),
-  getForecast: (id) => api.get('forecast', { params: id }),
 };

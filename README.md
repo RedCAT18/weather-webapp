@@ -7,7 +7,9 @@
 - Kaique Rocha from Pexels
 - Andre Furtado from Pexels
 - Brett Sayles from Pexels
-- Pixabay
 - Lisa Fotios from Pexels
 - Stanislav Kondratiev from Pexels
 - Gabriela Palai from Pexels
+- Johannes Plenio from Pexels
+- freestocks.org from Pexels
+- Dương Nhân from Pexels

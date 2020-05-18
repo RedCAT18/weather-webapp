@@ -18,6 +18,7 @@ const WorldContainer = () => {
   };
 
   useEffect(() => {
+    // console.log(weather);
     if (!weather) {
       const fetchData = async () => {
         const { data } = await weatherApi.getWorldWeathers(getCityIds());
@@ -34,6 +35,8 @@ const WorldContainer = () => {
       } finally {
         setLoading(false);
       }
+    } else {
+      setLoading(false);
     }
   }, [dispatch, weather]);
 

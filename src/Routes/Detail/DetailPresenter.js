@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ForecastPresenter = (props) => {
+const DetailPresenter = (props) => {
+  console.log(props);
   const { weather, error, loading } = props;
-  return <h1>Forecast</h1>;
+  return <h1>Detail</h1>;
 };
 
-export default ForecastPresenter;
+export default DetailPresenter;

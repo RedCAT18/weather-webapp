@@ -30,13 +30,13 @@ export const cities = [
     },
   },
   {
-    id: 1835847,
+    id: 1835848,
     name: 'Seoul',
     state: '',
     country: 'KR',
     coord: {
-      lon: 127,
-      lat: 37.583328,
+      lon: 126.977829,
+      lat: 37.56826,
     },
   },
   {
