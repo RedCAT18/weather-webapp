@@ -21,6 +21,9 @@ const Container = styled.div`
     -moz-box-shadow: 0px 5px 10px 2px #003049;
     box-shadow: 0px 5px 10px 2px #003049;
   }
+  :active {
+    transform: scale(0.99);
+  }
 `;
 
 const ContainerBackground = styled.div`
@@ -62,7 +65,7 @@ const Icon = styled.div`
 `;
 
 const List = (props) => {
-  console.log(props);
+  // console.log(props);
   const { id, name, main, weather } = props;
 
   return (

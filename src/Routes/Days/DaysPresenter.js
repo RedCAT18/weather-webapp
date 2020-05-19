@@ -48,7 +48,7 @@ const DaysPresenter = (props) => {
     weather ? (
       <Container>
         <Tophead
-          title={`The Current Weather and Forecast of 7 Days`}
+          title={`The Weather and Forecast of 7 Days`}
           subtitle={`(${weather.timezone})`}
           text={`Updated at ${getTime(weather.current.dt)}`}
         />

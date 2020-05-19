@@ -45,7 +45,7 @@ const Text = styled.p`
 `;
 
 const Board = ({ weather }) => {
-  console.log(weather);
+  // console.log(weather);
 
   const getRainfall = (weather) => {
     const rainfall = weather.rain || weather.snow || null;

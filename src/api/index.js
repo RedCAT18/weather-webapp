@@ -23,7 +23,7 @@ export const weatherApi = {
         q: city,
       },
     }),
-  getWeatherById: (id) => api.get(`weather`, { params: id }),
+  getWeatherById: (id) => api.get(`weather`, { params: { id } }),
   getDetailWeather: (lat, lon) =>
     api.get(`onecall`, {
       params: {

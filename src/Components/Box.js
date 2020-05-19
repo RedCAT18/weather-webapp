@@ -10,7 +10,7 @@ const Container = styled.div`
   justify-content: space-around;
   padding: 15px;
   margin-top: 40px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.5);
   -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);

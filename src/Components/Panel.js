@@ -9,10 +9,9 @@ const Container = styled.div`
   color: #333533;
   padding: 15px;
   border-radius: 5px;
-
   justify-content: space-between;
   align-items: flex-end;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.5);
   -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
@@ -39,22 +38,36 @@ const Textbox = styled.div`
   div:last-child {
     text-align: right;
   }
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    margin-bottom: 20px;
+    div,
+    div:last-child {
+      text-align: center;
+    }
+  }
 `;
 
 const Title = styled.h1`
   font-size: 48px;
   font-weight: 700;
   margin-bottom: 10px;
+  @media screen and (max-width: 600px) {
+    text-align: center;
+  }
 `;
 
 const Maintext = styled.p`
   font-size: 32px;
   font-weight: 700;
   z-index: 1;
+  @media screen and (max-width: 600px) {
+    text-align: center;
+  }
 `;
 
 const Subtext = styled.p`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   margin-bottom: 5px;
   z-index: 1;
@@ -77,7 +90,12 @@ const Panel = (props) => (
       <div>
         <Subtext>Feels like: {props.feelsLike}℃</Subtext>
         <Subtext>Clouds: {props.cloud}%</Subtext>
-        <Subtext>Visibility: {parseInt(props.visibility) / 1000}㎞</Subtext>
+        <Subtext>
+          Visibility:{' '}
+          {props.visibility
+            ? `${parseInt(props.visibility) / 1000}㎞`
+            : 'Unknown'}
+        </Subtext>
       </div>
       <div>
         <Subtext>Pressure: {props.pressure}hPa</Subtext>

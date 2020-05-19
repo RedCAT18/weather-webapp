@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import cityTimezones from 'city-timezones';
-import moment from 'moment-timezone';
+import { getLocalTime } from 'api/helper';
 
 import Form from 'Components/Form';
 import Loading from 'Components/Loading';
@@ -10,6 +9,7 @@ import Tophead from 'Components/Tophead';
 import Box from 'Components/Box';
 import Error from 'Components/Error';
 import Card from 'Components/Card';
+import Button from 'Components/Button';
 
 const Container = styled.div`
   width: 80vw;
@@ -37,27 +37,6 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  height: 80px;
-  background-color: #120136;
-  color: #fff;
-  border: none;
-  outline: none;
-  border-radius: 5px;
-  font-weight: 700;
-  font-size: 24px;
-  text-align: center;
-  margin-top: 20px;
-  cursor: pointer;
-  -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  &:active {
-    transform: scale(0.99);
-  }
 `;
 
 const DetailContainer = styled.div`
@@ -98,40 +77,19 @@ const CityPresenter = (props) => {
     handleClick,
   } = props;
   const [pageError, setPageError] = useState('');
+  // console.log(weather);
 
   useEffect(() => {
     if (error.length !== 0) setPageError(error);
   }, [error]);
 
-  console.log(detail);
-
-  const getTime = (time) => {
-    let timezone = cityTimezones.lookupViaCity(weather.name);
-    if (timezone.length === 0) {
-      timezone = cityTimezones.findFromCityStateProvince(weather.name);
-    }
-
-    if (timezone.length === 0) {
-      setPageError('Cannot find the city. Please input other name.');
-      return null;
-    }
-
-    let tzName =
-      timezone.length === 1
-        ? timezone[0].timezone
-        : timezone.filter(
-            (zone) =>
-              zone.city.includes(weather.name) &&
-              zone.iso2 === weather.sys.country
-          )[0].timezone;
-    let givenTime = new Date(time * 1000);
-    let localtime = moment(givenTime).tz(tzName).format();
-    return localtime.substr(11, 8);
-  };
-
   const getRainfall = (weather) => {
     const rainfall = weather.rain || weather.snow || null;
     return rainfall ? rainfall[Object.keys(rainfall)[0]] : null;
+  };
+
+  const getTime = (time) => {
+    return new Date(time * 1000).toString().substr(16, 8);
   };
 
   const renderContainer = () =>
@@ -141,7 +99,12 @@ const CityPresenter = (props) => {
       <Container>
         <Tophead
           title={`Current Weather of ${weather.name}, ${weather.sys.country}`}
-          text={`Updated at: ${getTime(weather.dt)} (Local time)`}
+          text={`Updated at: ${getTime(
+            weather.dt
+          )} (Your time) / ${getLocalTime(
+            weather.dt,
+            weather.timezone
+          )} (Local time)`}
         />
         <Content>
           <Panel
@@ -159,8 +122,8 @@ const CityPresenter = (props) => {
             visibility={weather.visibility}
           />
           <Box
-            sunrise={getTime(weather.sys.sunrise)}
-            sunset={getTime(weather.sys.sunset)}
+            sunrise={getLocalTime(weather.sys.sunrise, weather.timezone)}
+            sunset={getLocalTime(weather.sys.sunset, weather.timezone)}
           />
         </Content>
 
@@ -182,7 +145,7 @@ const CityPresenter = (props) => {
             </DetailContent>
           </DetailContainer>
         ) : (
-          <Button onClick={handleClick}>7 day forecast</Button>
+          <Button handleClick={handleClick} title={'7 day forecast'} />
         )}
       </Container>
     ) : (

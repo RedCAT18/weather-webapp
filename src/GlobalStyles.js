@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
     background-color: #f4f4f4;
     color: #252733;
   }
+
 `;
 
 export default GlobalStyles;

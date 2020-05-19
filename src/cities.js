@@ -10,13 +10,13 @@ export const cities = [
     },
   },
   {
-    id: 1705545,
+    id: 5368361,
     name: 'Los Angeles',
-    state: '',
-    country: 'PH',
+    state: 'CA',
+    country: 'US',
     coord: {
-      lon: 125.608063,
-      lat: 9.0125,
+      lon: -118.243683,
+      lat: 34.052231,
     },
   },
   {
@@ -181,13 +181,13 @@ export const cities = [
     },
   },
   {
-    id: 3369157,
-    name: 'Cape Town',
+    id: 993800,
+    name: 'Johannesburg',
     state: '',
     country: 'ZA',
     coord: {
-      lon: 18.42322,
-      lat: -33.925838,
+      lon: 28.043631,
+      lat: -26.202271,
     },
   },
   {
