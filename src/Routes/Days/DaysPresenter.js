@@ -6,6 +6,7 @@ import Board from 'Components/Board';
 import Tophead from 'Components/Tophead';
 import Card from 'Components/Card';
 import Chart from 'Components/Chart';
+import Error from 'Components/Error';
 
 const Container = styled.div`
   width: 80%;
@@ -45,7 +46,9 @@ const DaysPresenter = (props) => {
   };
 
   const renderContainer = () =>
-    weather ? (
+    error ? (
+      <Error error={error} />
+    ) : weather ? (
       <Container>
         <Tophead
           title={`The Weather and Forecast of 7 Days`}

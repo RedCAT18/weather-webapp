@@ -5,6 +5,7 @@ import Loading from 'Components/Loading';
 import Panel from 'Components/Panel';
 import Box from 'Components/Box';
 import Tophead from 'Components/Tophead';
+import Error from 'Components/Error';
 
 const Container = styled.div`
   position: relative;
@@ -54,7 +55,9 @@ const HomePresenter = (props) => {
   };
 
   const renderContainer = () =>
-    weather ? (
+    error ? (
+      <Error error={error} />
+    ) : weather ? (
       <Container
         bgImage={require(`assets/photos/${weather.weather[0].main.toLowerCase()}.jpg`)}
       >

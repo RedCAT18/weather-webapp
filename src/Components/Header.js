@@ -6,7 +6,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
   position: -webkit-sticky;
   position: sticky;
   top: 0;

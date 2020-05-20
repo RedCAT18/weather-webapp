@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { CSSTransition } from 'react-transition-group';
 
 import { getLocalTime } from 'api/helper';
 import Tophead from 'Components/Tophead';
@@ -7,7 +8,7 @@ import Loading from 'Components/Loading';
 import Panel from 'Components/Panel';
 import Button from 'Components/Button';
 import Card from 'Components/Card';
-import { Link } from 'react-router-dom';
+import Error from 'Components/Error';
 
 const Container = styled.div`
   width: 80vw;
@@ -21,6 +22,13 @@ const Container = styled.div`
   padding: 30px;
   @media screen and (max-width: 768px) {
     width: 100%;
+  }
+  .fade-enter {
+    transform: translateY(-100%);
+  }
+  .fade-enter-active {
+    transform: translateY(0);
+    transition: transform 0.5s;
   }
 `;
 
@@ -67,9 +75,18 @@ const LinkText = styled.p`
   cursor: pointer;
 `;
 
+const ForecastHidden = styled.div`
+  overflow: hidden;
+`;
+
 const DetailPresenter = (props) => {
   console.log(props);
   const { weather, forecast, error, loading, goBack, handleClick } = props;
+  const [openForecast, setOpenForecast] = useState(false);
+
+  useEffect(() => {
+    if (forecast) setOpenForecast(true);
+  }, [forecast]);
 
   const getTime = (time) => {
     return new Date(time * 1000).toString().substr(16, 8);
@@ -81,7 +98,9 @@ const DetailPresenter = (props) => {
   };
 
   const renderContainer = () =>
-    weather ? (
+    error ? (
+      <Error error={error} />
+    ) : weather ? (
       <Container>
         <Tophead
           title={`The Weather of ${weather.name}`}
@@ -108,26 +127,35 @@ const DetailPresenter = (props) => {
             visibility={weather.visibility}
           />
         </Content>
-        {forecast ? (
-          <DetailContainer>
-            <Title>Forecast 7 days</Title>
-            <DetailContent>
-              {forecast.map((day, idx) => {
-                const now = new Date();
-                let newDay = now.getDate() + parseInt(idx);
-                now.setDate(newDay);
-                let date = {
-                  month: now.getMonth() + 1,
-                  day: now.getDate(),
-                  daycord: (now.getDay() + idx) % 7,
-                };
-                return <Card weather={day} date={date} key={idx} />;
-              })}
-            </DetailContent>
-          </DetailContainer>
-        ) : (
-          <Button handleClick={handleClick} title={'7 day forecast'} />
-        )}
+        <ForecastHidden>
+          {forecast ? (
+            <CSSTransition
+              in={openForecast}
+              classNames="fade"
+              timeout={500}
+              mountOnEnter
+            >
+              <DetailContainer>
+                <Title>Forecast 7 days</Title>
+                <DetailContent>
+                  {forecast.map((day, idx) => {
+                    const now = new Date();
+                    let newDay = now.getDate() + parseInt(idx);
+                    now.setDate(newDay);
+                    let date = {
+                      month: now.getMonth() + 1,
+                      day: now.getDate(),
+                      daycord: (now.getDay() + idx) % 7,
+                    };
+                    return <Card weather={day} date={date} key={idx} />;
+                  })}
+                </DetailContent>
+              </DetailContainer>
+            </CSSTransition>
+          ) : (
+            <Button handleClick={handleClick} title={'7 day forecast'} />
+          )}
+        </ForecastHidden>
         <LinkText onClick={() => goBack()}>◀ Previous Page</LinkText>
       </Container>
     ) : null;

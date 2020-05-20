@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { getLocalTime } from 'api/helper';
+import { CSSTransition } from 'react-transition-group';
 
 import Form from 'Components/Form';
 import Loading from 'Components/Loading';
@@ -17,6 +18,14 @@ const Container = styled.div`
   margin: auto;
   min-height: 100vh;
   padding: 30px;
+
+  .fade-enter {
+    transform: translateY(-100%);
+  }
+  .fade-enter-active {
+    transform: translateY(0);
+    transition: transform 0.5s;
+  }
 `;
 
 const Blank = styled.div`
@@ -37,6 +46,10 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 30px;
+`;
+
+const DetailHidden = styled.div`
+  overflow: hidden;
 `;
 
 const DetailContainer = styled.div`
@@ -68,6 +81,7 @@ const Title = styled.h1`
 const CityPresenter = (props) => {
   const {
     city,
+    filteredCities,
     weather,
     detail,
     error,
@@ -77,11 +91,13 @@ const CityPresenter = (props) => {
     handleClick,
   } = props;
   const [pageError, setPageError] = useState('');
+  const [detailOpen, setDetailOpen] = useState(false);
   // console.log(weather);
 
   useEffect(() => {
     if (error.length !== 0) setPageError(error);
-  }, [error]);
+    if (detail) setDetailOpen(true);
+  }, [error, detail]);
 
   const getRainfall = (weather) => {
     const rainfall = weather.rain || weather.snow || null;
@@ -127,26 +143,35 @@ const CityPresenter = (props) => {
           />
         </Content>
 
-        {detail ? (
-          <DetailContainer>
-            <Title>Forecast 7 days</Title>
-            <DetailContent>
-              {detail.map((day, idx) => {
-                const now = new Date();
-                let newDay = now.getDate() + parseInt(idx);
-                now.setDate(newDay);
-                let date = {
-                  month: now.getMonth() + 1,
-                  day: now.getDate(),
-                  daycord: (now.getDay() + idx) % 7,
-                };
-                return <Card weather={day} date={date} key={idx} />;
-              })}
-            </DetailContent>
-          </DetailContainer>
-        ) : (
-          <Button handleClick={handleClick} title={'7 day forecast'} />
-        )}
+        <DetailHidden>
+          {detail ? (
+            <CSSTransition
+              in={detailOpen}
+              classNames="fade"
+              timeout={500}
+              mountOnEnter
+            >
+              <DetailContainer>
+                <Title>Forecast 7 days</Title>
+                <DetailContent>
+                  {detail.map((day, idx) => {
+                    const now = new Date();
+                    let newDay = now.getDate() + parseInt(idx);
+                    now.setDate(newDay);
+                    let date = {
+                      month: now.getMonth() + 1,
+                      day: now.getDate(),
+                      daycord: (now.getDay() + idx) % 7,
+                    };
+                    return <Card weather={day} date={date} key={idx} />;
+                  })}
+                </DetailContent>
+              </DetailContainer>
+            </CSSTransition>
+          ) : (
+            <Button handleClick={handleClick} title={'7 day forecast'} />
+          )}
+        </DetailHidden>
       </Container>
     ) : (
       <Container>

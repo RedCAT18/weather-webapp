@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Tophead from 'Components/Tophead';
 import Loading from 'Components/Loading';
 import List from 'Components/List';
+import Error from 'Components/Error';
 
 const Container = styled.div`
   width: 80vw;
@@ -27,7 +28,9 @@ const WorldPresenter = (props) => {
   const { weather, error, loading } = props;
 
   const renderContainer = () =>
-    weather ? (
+    error ? (
+      <Error error={error} />
+    ) : weather ? (
       <Container>
         <Tophead title={'World Weather'} />
         <Content>

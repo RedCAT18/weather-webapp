@@ -12,9 +12,9 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   background-color: rgba(255, 255, 255, 0.5);
-  -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
 `;
 
 const Icon = styled.span`

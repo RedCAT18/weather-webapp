@@ -14,9 +14,9 @@ const ButtonStyle = styled.button`
   text-align: center;
   margin-top: 20px;
   cursor: pointer;
-  -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
   &:active {
     transform: scale(0.99);
   }

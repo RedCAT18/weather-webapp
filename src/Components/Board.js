@@ -5,9 +5,9 @@ const Container = styled.div`
   background-color: #120136;
   border-radius: 5px;
   padding: 5px;
-  -webkit-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
   margin: 5px;
   color: #fff;
 `;

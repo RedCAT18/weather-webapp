@@ -17,9 +17,9 @@ const Container = styled.div`
     background-color: #003049;
     background-blend-mode: multiply;
     color: #fff;
-    -webkit-box-shadow: 0px 5px 10px 2px #003049;
-    -moz-box-shadow: 0px 5px 10px 2px #003049;
-    box-shadow: 0px 5px 10px 2px #003049;
+    -webkit-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 3px 5px 2px rgba(0, 0, 0, 0.3);
   }
   :active {
     transform: scale(0.99);
@@ -50,10 +50,6 @@ const Title = styled.h1`
   margin: 10px;
   z-index: 1;
 `;
-
-const Subtitle = styled.h2``;
-
-const Text = styled.p``;
 
 const Icon = styled.div`
   background-image: url('${(props) => props.bgImage}');
